@@ -6,6 +6,8 @@
 
 ## Выпуски
 
+- [#21 — 16 августа 2026](2026/2026-08-16-hermes-agent-news-digest-21.md)
+- [#20 — 15 августа 2026](2026/2026-08-15-hermes-agent-news-digest-20.md)
 - [#19 — 14 августа 2026 · релиз v0.20.1 (v2026.8.13)](2026/2026-08-14-hermes-agent-news-digest-19.md)
 - [#18 — 13 августа 2026](2026/2026-08-13-hermes-agent-news-digest-18.md)
 - [#17 — 12 августа 2026](2026/2026-08-12-hermes-agent-news-digest-17.md)
