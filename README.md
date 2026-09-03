@@ -6,6 +6,7 @@
 
 ## Выпуски
 
+- [#39 — 3 сентября 2026](2026/2026-09-03-hermes-agent-news-digest-39.md)
 - [#38 — 2 августа 2026](2026/2026-09-02-hermes-agent-news-digest-38.md)
 
 - [#37 — 1 сентября 2026 · релиз v0.21.0 «The Pantheon Release» (v2026.8.31)](2026/2026-09-01-hermes-agent-news-digest-37.md)
