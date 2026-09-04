@@ -6,6 +6,7 @@
 
 ## Выпуски
 
+- [#40 — 4 сентября 2026](2026/2026-09-04-hermes-agent-news-digest-40.md)
 - [#39 — 3 сентября 2026](2026/2026-09-03-hermes-agent-news-digest-39.md)
 - [#38 — 2 августа 2026](2026/2026-09-02-hermes-agent-news-digest-38.md)
 
