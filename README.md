@@ -6,6 +6,7 @@
 
 ## Выпуски
 
+- [#48 — 12 сентября 2026 · релиз v0.21.2 «The state.db Patch Release» (v2026.9.11)](2026/2026-09-12-hermes-agent-news-digest-48.md)
 - [#47 — 11 сентября 2026](2026/2026-09-11-hermes-agent-news-digest-47.md)
 - [#46 — 10 сентября 2026](2026/2026-09-10-hermes-agent-news-digest-46.md)
 - [#45 — 9 сентября 2026](2026/2026-09-09-hermes-agent-news-digest-45.md)
