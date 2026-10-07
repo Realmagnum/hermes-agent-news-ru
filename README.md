@@ -13,6 +13,7 @@
 
 ## Выпуски
 
+- [#73 — 7 октября 2026](2026/2026-10-07-hermes-agent-news-digest-73.md)
 - [#72 — 6 октября 2026](2026/2026-10-06-hermes-agent-news-digest-72.md)
 - [#71 — 5 октября 2026](2026/2026-10-05-hermes-agent-news-digest-71.md)
 - [#70 — 4 октября 2026](2026/2026-10-04-hermes-agent-news-digest-70.md)
