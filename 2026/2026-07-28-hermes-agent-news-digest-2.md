@@ -1,37 +1,49 @@
 # Новости Hermes Agent #2
 
-Nous Research вступает в Open Secure AI Alliance и переносит Obliteratus в нативный скилл Hermes.
+> **Выпуск:** #2 · **Дата:** 28 июля 2026  
+> **Оригинал:** [hermes-agent-news-fr #2](https://github.com/t1t4nium/hermes-agent-news-fr/blob/main/2026/2026-07-28-hermes-agent-news-digest-2.md)
 
-## Nous Research — член-основатель Open Secure AI Alliance
+---
 
-NVIDIA запустила Open Secure AI Alliance 27 июля — коалицию из 37 организаций, нацеленную на разработку открытых технологий, инструментов и стандартов для безопасности ПО и ИИ-агентов. Nous Research входит в число членов-основателей наряду с Adobe, Cisco, Cloudflare, CrowdStrike, Databricks, Hugging Face, IBM, LangChain, Microsoft, Palantir, Red Hat, Salesforce, Snowflake и SpaceXAI.
+### Кратко в этом выпуске:
+- [Nous Research вошла в число основателей Open Secure AI Alliance](#nous-research-voshla-v-chislo-osnovatelej-open-secure-ai-alliance)
+- [Obliteratus стал нативным скиллом для Hermes](#obliteratus-stal-nativnym-skillom-dlya-hermes)
 
-Альянс исходит из того, что безопасность ИИ-агента не ограничивается его языковой моделью. Она зависит от всего стека (идентичность, права, harness, защитные механизмы, логи, оценка). Продвигаемый подход — открытая защита, при которой инструменты безопасности инспектируемы, адаптируемы и разворачиваемы любым защитником, а не заперты в непрозрачных проприетарных системах.
+---
 
-NVIDIA также опубликовала фреймворк NOOA (NVIDIA Labs Object-Oriented Agent) в открытый доступ на GitHub — исследовательский каркас, позволяющий harness'ам агентов лучше интегрировать модели для упрощения тестирования, трассировки, аудита и управления агентным поведением.
+## Nous Research вошла в число основателей Open Secure AI Alliance
 
-> Источники: [@NousResearch, 27 июля 2026](https://x.com/NousResearch/status/2081774973845205482) — [Блог NVIDIA](https://blogs.nvidia.com/blog/open-secure-ai-alliance/)
+27 июля NVIDIA объявила о создании **Open Secure AI Alliance** — коалиции из 37 организаций, нацеленной на разработку открытых технологий, инструментов и стандартов безопасности для агентных систем и прикладного ИИ-софта. **Nous Research** вошла в число основателей альянса наряду с Adobe, Cisco, Cloudflare, CrowdStrike, Databricks, Hugging Face, IBM, LangChain, Microsoft, Palantir, Red Hat, Salesforce, Snowflake и SpaceXAI.
 
-## Obliteratus теперь доступен как нативный скилл Hermes
+Главный посыл инициативы: безопасность ИИ-агента выходит далеко за рамки весов базовой LLM. Она определяется надежностью всего стека — включая идентификацию, управление правами, агентные харнесы (agent harness), гардрейлы, аудит логов и бенчмарки оценки (evals). 
 
-Obliteratus — открытый инструмент, который определяет конкретные веса, вынуждающие модель отказывать в ответах (refusal), и вытесняет их из модели одним кликом. Теперь он доступен как нативный скилл Hermes.
+Альянс продвигает концепцию прозрачной защиты (open defense): инструменты безопасности должны быть аудируемыми, гибкими в адаптации и доступными любому инженеру по ИБ, а не скрытыми внутри закрытых проприетарных платформ.
 
-Teknium анонсировал 25 июля, что нативный порт доступен по команде:
+Параллельно NVIDIA открыла исходный код исследовательского фреймворка **NOOA** (NVIDIA Labs Object-Oriented Agent) на GitHub. Он спроектирован для того, чтобы агентные платформы могли глубже интегрировать модели, упрощая отладку, трассировку, аудит и контроль поведения автономных агентов.
 
-```
+> **Источники:**
+> - [@NousResearch — Анонс участия в Open Secure AI Alliance (27 июля 2026)](https://x.com/NousResearch/status/2081774973845205482)
+> - [NVIDIA Blog — Industry Leaders Join Open Secure AI Alliance](https://blogs.nvidia.com/blog/open-secure-ai-alliance/)
+
+---
+
+## Obliteratus стал нативным скиллом для Hermes
+
+Open-source утилита **Obliteratus**, позволяющая определять конкретные веса, вызывающие у модели отказ отвечать (*refusal*), и в один клик исключать их из проекции модели, теперь доступна в виде нативного скилла Hermes Agent.
+
+Как сообщил @Teknium 25 июля, установить порт можно штатной командой:
+
+```bash
 hermes skills install official/mlops/obliteratus
 ```
 
-Инструмент входит в число опциональных скиллов, встроенных в Hermes Agent. Подход хирургический: вместо широкого отключения защитных механизмов Obliteratus нацеливается на точные веса, отвечающие за поведение отказа, и нейтрализует их выборочно.
+Инструмент вошел в каталог официальных опциональных скиллов Hermes. Главное преимущество подхода — хирургическая точность: вместо масштабного отключения защитных механизмов Obliteratus таргетированно воздействует на вычисленные компоненты отказа, нейтрализуя лишь нежелательные блокировки без деградации общей производительности модели.
 
-> Источник: [@Teknium, 25 июля 2026](https://x.com/Teknium/status/2081134153970688251)
+> **Источники:**
+> - [@Teknium — Релиз нативного скилла Obliteratus (25 июля 2026)](https://x.com/Teknium/status/2081134153970688251)
 
-## Источники
-
-- [@NousResearch — Open Secure AI Alliance, 27 июля 2026](https://x.com/NousResearch/status/2081774973845205482)
-- [Блог NVIDIA — Industry Leaders Join Open Secure AI Alliance](https://blogs.nvidia.com/blog/open-secure-ai-alliance/)
-- [@Teknium — Obliteratus — нативный скилл Hermes, 25 июля 2026](https://x.com/Teknium/status/2081134153970688251)
+---
 
 ## Лицензия
 
-CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr)
+CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr).

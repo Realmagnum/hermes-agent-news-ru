@@ -1,41 +1,102 @@
 # Новости Hermes Agent #42
 
-Этот выпуск рассказывает о возможности закреплять поставщиков OpenRouter для каждой модели отдельно, о возобновлении в одно действие сессий Claude Code и Codex в Hermes, о шестьдесят четвёртом номере Wingtips, посвящённом личному файлу проекта AGENTS.override.md, а также о скидке вполовину на подписки Nous Portal до 9 сентября.
+> **Выпуск:** #42 · **Дата:** 6 сентября 2026  
+> **Оригинал:** [hermes-agent-news-fr #42](https://github.com/t1t4nium/hermes-agent-news-fr/blob/main/2026/2026-09-06-hermes-agent-news-digest-42.md)
 
-## Выбор поставщика OpenRouter для каждой модели отдельно
+---
 
-Teknium объявил 6 сентября, что пользователи OpenRouter могут теперь закреплять поставщиков по каждой модели в конфигурации Hermes Agent. Раньше приходилось фиксировать поставщика или набор поставщиков в глобальном масштабе, что усложняло смену модели при сохранении требований к поставщику.
+### Кратко в этом выпуске:
+- [Привязка провайдеров OpenRouter на уровне отдельных моделей](#привязка-провайдеров-openrouter-на-уровне-отдельных-моделей)
+- [Бесшовный импорт сессий из Claude Code и Codex в Hermes](#бесшовный-импорт-сессий-из-claude-code-и-codex-в-hermes)
+- [Wingtips #64: локальные инструкции через AGENTS.override.md](#wingtips-64-локальные-инструкции-через-agentsoverridemd)
+- [Скидка 50% на подписки Nous Portal до 9 сентября](#скидка-50-на-подписки-nous-portal-до-9-сентября)
 
-Документация подробно описывает новый ключ. Секция `provider_routing` файла `config.yaml` принимает запись `models`, каждая подзапись которой, названная по идентификатору модели, повторяет настройки `sort`, `only`, `ignore`, `order`, `require_parameters` и `data_collection`, применяя их только к этой модели; всё, что не задано на уровне модели, откатывается к общим значениям. Документированный пример запрещает посреднику обслуживать `openai/gpt-6-astra` через `only: ["openai"]`, закрепляет `claude-fable-5.1` за `anthropic` или задаёт для `kimi-k2.6` порядок поставщиков с ранжированием по пропускной способности. Сопоставление допускает отклонения в написании и префикс `openrouter/`, а закрепление следует текущей модели: смена через `/model`, включение фолбэка, задачи cron и делегированные субагенты на другой модели получают каждая свои ограничения. Эти ключи настраиваются прямым редактированием `config.yaml`, поскольку идентификаторы моделей содержат точки, которые `hermes config set` читает как разделители пути. Маршрутизация по поставщику применима только к OpenRouter: Nous Portal решает маршрутизацию на своей стороне и не принимает предпочтения, пришедшего от вызывающего.
+---
 
-> Источники: [@Teknium, You can now pin providers per model in your Hermes Agent config, 6 сентября 2026](https://x.com/Teknium/status/2096569635948900404) и [Provider Routing, документация Hermes Agent](https://hermes-agent.nousresearch.com/docs/user-guide/features/provider-routing)
+## Привязка провайдеров OpenRouter на уровне отдельных моделей
 
-## Продолжение сессии Claude Code или Codex в Hermes
+Разработчик @Teknium объявил, что пользователи OpenRouter теперь могут закреплять конкретных апстрим-провайдеров отдельно для каждой модели в конфигурации Hermes Agent. Раньше правила маршрутизации приходилось задавать глобально, из-за чего переключение моделей с сохранением специфических ограничений по хостам было неудобным.
 
-Tonbi опубликовал 5 сентября видео, показывающее команду, которая позволяет продолжить в Hermes Agent разговор, начатый в Claude Code или Codex, и Teknium привлёк к нему внимание в тот же день.
+В документации уже описан обновленный синтаксис:
+- В секцию `provider_routing` файла `config.yaml` добавлен блок `models`.
+- Для каждого идентификатора модели можно задать персональные параметры: `sort`, `only`, `ignore`, `order`, `require_parameters` и `data_collection`.
+- Все неуказанные параметры автоматически наследуют глобальные значения.
 
-Hermes читает журналы сессий Claude Code в `~/.claude/projects/` и развёртывания Codex CLI в `~/.codex/sessions/`, никогда не изменяя эти сторонние файлы. `hermes sessions import --from claude` импортирует разговор, а `--from codex`, за которым следует путь, указывает на конкретное развёртывание. `hermes --resume @claude` и `hermes --resume @codex` выполняют импорт, а затем напрямую открывают продолженный разговор. Импорт создаёт сессию с заголовком `Imported from Claude Code: <premier message utilisateur>`, или эквивалент для Codex, и выводит готовую к вставке команду `hermes --resume <id>`. Переносится упорядоченный разговор между пользователем и ассистентом, при этом активность инструментов сжимается в короткие заметки `[ran tool: ...]` в ходах ассистента; системные промпты, внедрённый контекст, трассы рассуждений и необработанные выводы инструментов остаются позади — ради чистого транскрипта, а не побайтового перечитывания.
+**Примеры применения:**
+- Запретить реселлерам отдавать модель `openai/gpt-6-astra`, зафиксировав оригинал через `only: ["openai"]`.
+- Жестко закрепить `claude-fable-5.1` за `anthropic`.
+- Выстроить приоритетный список провайдеров для `kimi-k2.6` с сортировкой по пропускной способности (throughput).
 
-> Источники: [@tonbistudio, Now there's a single command that makes this possible, 5 сентября 2026](https://x.com/tonbistudio/status/2096238168978645260), [@Teknium, Easily pick up your codex or Claude code sessions in Hermes, 5 сентября 2026](https://x.com/Teknium/status/2096239718824550439) и [Sessions, документация Hermes Agent](https://hermes-agent.nousresearch.com/docs/user-guide/sessions)
+Парсер модели устойчив к неточностям написания и корректно обрабатывает префикс `openrouter/`. Правила маршрутизации динамически следуют за активной моделью: смена через команду `/model`, резервные фолбэки, фоновые cron-задачи и делегированные сабагенты получают строго свои ограничения. 
 
-## Wingtips #64: AGENTS.override.md, ваша личная надстройка проекта
+> **Важно:** эти параметры необходимо прописывать вручную в `config.yaml`. Консольная команда `hermes config set` воспринимает точки в именах моделей как разделители вложенных путей конфига. Маршрутизация актуальна только для OpenRouter — платформа Nous Portal управляет балансировкой самостоятельно и не принимает клиентские предпочтения.
 
-В шестьдесят четвёртом номере Wingtips witcheer напоминает, что когда вы открываете Hermes Agent в проекте, он на каждом ходу читает `AGENTS.md` этого проекта — файл, где команда хранит свои правила: организацию кода, зоны, которых нельзя касаться, команды для запуска. Заданный вопрос — как применять собственные инструкции, не трогая файл, отслеживаемый репозиторием.
+> **Источники:**
+> - [@Teknium — You can now pin providers per model in your Hermes Agent config (6 сентября 2026)](https://x.com/Teknium/status/2096569635948900404)
+> - [Hermes Agent Docs — Provider Routing](https://hermes-agent.nousresearch.com/docs/user-guide/features/provider-routing)
 
-Документация отвечает с помощью `AGENTS.override.md`. За сессию загружается только один тип контекста проекта, побеждает первое совпадение: `.hermes.md`, затем `AGENTS.override.md`, затем `AGENTS.md`, затем `CLAUDE.md` и `.cursorrules`. Когда `AGENTS.override.md` находится рядом с `AGENTS.md`, надстройка загружается вместо отслеживаемого файла. Так вы храните личный файл, обычно игнорируемый git, с инструкциями, отличными от репозиторных, не редактируя отслеживаемый `AGENTS.md`.
+---
 
-> Источники: [@witcheer, Hermes Wingtips #64 : AGENTS.override.md, 6 сентября 2026](https://x.com/witcheer/status/2096481734388858931) и [Context Files, документация Hermes Agent](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files)
+## Бесшовный импорт сессий из Claude Code и Codex в Hermes
 
-## Скидка 50 % на подписки Nous Portal до 9 сентября
+Разработчик Tonbi продемонстрировал возможность мгновенно подхватывать диалоги, начатые в Claude Code или Codex CLI, прямо внутри Hermes Agent. Нововведение также отметил @Teknium.
 
-Nous Research объявила 5 сентября о снижении на 50 % на любую подписку Nous Portal до 9 сентября по коду `LMH4FMJ2`. witcheer, который видит в этом предложении знак, которого многие ждали, чтобы попробовать Hermes Agent, напоминает, что одна подписка портала открывает доступ к каталогу моделей, размещённому шлюзу инструментов и облачным агентам Nous Portal.
+Hermes напрямую читает журналы сессий Claude Code (в каталоге `~/.claude/projects/`) и роллауты Codex CLI (в `~/.codex/sessions/`), работая с файлами исключительно в режиме чтения:
 
-> Источники: [@NousResearch, Accelerate your labor with Hermes Agent, 5 сентября 2026](https://x.com/NousResearch/status/2096263611811320228) и [@witcheer, half price on any Nous Portal subscription, 5 сентября 2026](https://x.com/witcheer/status/2096265225183891468)
+```bash
+# Импорт сессии из Claude Code
+hermes sessions import --from claude
+
+# Импорт конкретного роллаута из Codex
+hermes sessions import --from codex /path/to/rollout
+
+# Импорт с немедленным продолжением диалога
+hermes --resume @claude
+hermes --resume @codex
+```
+
+После импорта создается сессия с понятным названием (например, `Imported from Claude Code: <первое сообщение пользователя>`) и выводится готовая команда вида `hermes --resume <id>`. 
+
+В Hermes переносится вся последовательная переписка пользователя и ассистента, а вызовы инструментов лаконично сворачиваются в плейсхолдеры `[ran tool: ...]`. Системные промпты, промежуточные цепочки рассуждений (reasoning traces) и «сырые» выводы утилит отсекаются, что обеспечивает чистый контекст без избыточного шума.
+
+> **Источники:**
+> - [@tonbistudio — Now there's a single command that makes this possible (5 сентября 2026)](https://x.com/tonbistudio/status/2096238168978645260)
+> - [@Teknium — Easily pick up your codex or Claude code sessions in Hermes (5 сентября 2026)](https://x.com/Teknium/status/2096239718824550439)
+> - [Hermes Agent Docs — Sessions](https://hermes-agent.nousresearch.com/docs/user-guide/sessions)
+
+---
+
+## Wingtips #64: локальные инструкции через AGENTS.override.md
+
+В 64-м выпуске заметок Wingtips автор @witcheer напомнил о механике контекста проекта: при запуске Hermes Agent на каждом шаге считывает `AGENTS.md` — файл, в котором команда фиксирует правила кодовой базы, ограничения на правки и стандартные команды сборки. Но как настроить поведение агента под себя, не загрязняя общий Git-репозиторий?
+
+Решением служит файл `AGENTS.override.md`. За одну сессию агент подгружает только один файл контекста по следующему приоритету (выигрывает первое совпадение):
+1. `.hermes.md`
+2. `AGENTS.override.md`
+3. `AGENTS.md`
+4. `CLAUDE.md`
+5. `.cursorrules`
+
+Если положить `AGENTS.override.md` рядом с `AGENTS.md`, агент полностью проигнорирует командный файл и применит персональный оверрайд. Добавив этот файл в локальный `.gitignore`, можно гибко экспериментировать с собственными системными инструкциями без риска закоммитить их в проект.
+
+> **Источники:**
+> - [@witcheer — Hermes Wingtips #64: AGENTS.override.md (6 сентября 2026)](https://x.com/witcheer/status/2096481734388858931)
+> - [Hermes Agent Docs — Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files)
+
+---
+
+## Скидка 50% на подписки Nous Portal до 9 сентября
+
+Команда Nous Research объявила о временной скидке 50% на все планы подписки Nous Portal. Акция действует до 9 сентября 2026 года по промокоду `LMH4FMJ2`.
+
+Как отметил @witcheer, это отличный повод протестировать экосистему Hermes Agent в облаке. Единая подписка открывает полный доступ к каталогу моделей, управляемому шлюзу инструментов (hosted tool gateway) и облачным агентам платформы.
+
+> **Источники:**
+> - [@NousResearch — Accelerate your labor with Hermes Agent (5 сентября 2026)](https://x.com/NousResearch/status/2096263611811320228)
+> - [@witcheer — half price on any Nous Portal subscription (5 сентября 2026)](https://x.com/witcheer/status/2096265225183891468)
+
+---
 
 ## Лицензия
 
-CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr)
-
-## Спонсор
-
-Ежедневные новости Hermes Agent — это новости о Hermes Agent и Nous Research, а также всей экосистемы, с источниками, резюме и переводом каждый день, для вас. Вам нравится ежедневник? Он вам полезен? Экономит ваше время? Поддержите его, став спонсором: [github.com/sponsors/t1t4nium](https://github.com/sponsors/t1t4nium).
+CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr).

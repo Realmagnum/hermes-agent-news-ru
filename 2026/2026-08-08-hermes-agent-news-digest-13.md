@@ -1,58 +1,97 @@
 # Новости Hermes Agent #13
 
-В Hermes Agent приходят стандартные переносимые плагины, команда /learn превращает целые книги в скиллы, встроенный браузер desktop теперь работает и с удалённым gateway, а пользователь спроектировал целую игру внутри агента.
+> **Выпуск:** #13 · **Дата:** 8 августа 2026  
+> **Оригинал:** [hermes-agent-news-fr #13](https://github.com/t1t4nium/hermes-agent-news-fr/blob/main/2026/2026-08-08-hermes-agent-news-digest-13.md)
 
-## Стандартные переносимые плагины: Hermes читает пакеты Agent Plugins v1
+---
 
-7 августа Teknium анонсировал, что Hermes Agent поддерживает стандарт переносимых плагинов, принятый несколькими крупными игроками ИИ-индустрии. Совместимый репозиторий устанавливается через обычный плагинный поток, и Hermes загружает его неймспейсные скиллы в режиме только для чтения, а также его MCP-серверы stdio.
+### Кратко в этом выпуске:
+- [Стандартные портативные плагины: поддержка пакетов Agent Plugins v1](#стандартные-портативные-плагины-поддержка-пакетов-agent-plugins-v1)
+- [Команда /learn трансформирует целые книги в технические скиллы](#команда-learn-трансформирует-целые-книги-в-технические-скиллы)
+- [Встроенный браузер теперь работает через remote gateway](#встроенный-браузер-теперь-работает-через-remote-gateway)
+- [Разработка полноценной игры целиком внутри Hermes Agent](#разработка-полноценной-игры-целиком-внутри-hermes-agent)
 
-Пакеты устанавливаются отключёнными и активируются только после явного согласия. Перед загрузкой Hermes проверяет манифест, метаданные скиллов, пути, симлинки и MCP-конфигурацию.
+---
 
-> «Agent plugins should not be trapped inside one platform.»
+## Стандартные портативные плагины: поддержка пакетов Agent Plugins v1
+
+7 августа Teknium объявил о внедрении в Hermes Agent поддержки открытого стандарта портативных плагинов, который сейчас берут на вооружение ключевые игроки индустрии. 
+
+Теперь любой совместимый репозиторий устанавливается через привычный флоу плагинов Hermes. Агент автоматически монтирует скиллы из изолированного неймспейса в режиме «только чтение» (read-only) и запускает `stdio`-серверы MCP.
+
+**Ключевые особенности и безопасность:**
+- **Безопасная установка:** пакеты устанавливаются в выключенном состоянии и активируются только после явного подтверждения пользователем.
+- **Строгая верификация:** перед загрузкой Hermes валидирует манифест, метаданные скиллов, пути, симлинки и конфигурацию MCP.
+- **Обратная совместимость:** как уточнил @witcheer, скиллы из пакета бесшовно регистрируются в стандартном реестре, а серверы MCP работают через существующий MCP-рантайм. Если пакет содержит нативный манифест Hermes, приоритет отдается ему.
+
+> "Agent plugins should not be trapped inside one platform."
 >
-> «Portable plugins give you compatibility. Native Hermes plugins give you the full platform, including custom tools, slash commands, hooks, Desktop, Dashboard, and deeper APIs.»
+> "Portable plugins give you compatibility. Native Hermes plugins give you the full platform, including custom tools, slash commands, hooks, Desktop, Dashboard, and deeper APIs."
 
-Witcheer дополнил картину 8 августа: скиллы пакета попадают в обычный реестр скиллов, MCP-серверы проходят через существующий MCP-runtime, а нативный манифест всегда имеет приоритет, если он есть в пакете. Для slash-команд, GUI-плагинов, дашборда и скинов нативная API остаётся самой большой поверхностью.
+Портативные плагины закрывают потребность в кросс-платформенной переносимости, однако нативный API Hermes остается предпочтительным для слэш-команд, компонентов GUI, виджетов Dashboard и кастомных скинов.
 
-> Источник: [@Teknium, 7 августа 2026](https://x.com/Teknium/status/2085780613005504687) — [@witcheer, 8 августа 2026](https://x.com/witcheer/status/2086108907685003306) — [Документация переносимых плагинов](https://hermes-agent.nousresearch.com/docs/developer-guide/plugins#portable-agent-plugins-v1-packages)
+> **Источники:**
+> - [@Teknium — Анонс портативных плагинов (7 августа 2026)](https://x.com/Teknium/status/2085780613005504687)
+> - [@witcheer — Технические подробности реализации (8 августа 2026)](https://x.com/witcheer/status/2086108907685003306)
+> - [Hermes Agent Docs — Портативные плагины Agent Plugins v1](https://hermes-agent.nousresearch.com/docs/developer-guide/plugins#portable-agent-plugins-v1-packages)
 
-## /learn превращает целые книги в технические скиллы
+---
 
-7 августа Teknium анонсировал, что команда /learn интегрирует работу репозитория book-to-skill. Hermes Agent может поглотить целую книгу — PDF или другую — и извлечь из неё подробные технические скиллы.
+## Команда /learn трансформирует целые книги в технические скиллы
 
-> «Integrated the work of book-to-skill repo into our /learn command, and now Hermes Agent can ingest full books to create comprehensive detailed technical skills! Just /learn and point it to any pdf or book you have!»
+В команду `/learn` интегрировали кодовую базу репозитория `book-to-skill` ([virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill)). Теперь Hermes Agent может скармливать себе полноценные книги и крупные PDF-документы, автоматически формируя из них глубокие и структурированные технические **скиллы**.
 
-Исходный репозиторий — github.com/virgiliojr94/book-to-skill. Первый отзыв об использовании пришёл уже 8 августа: @b3pl33 накормил специализированного агента по вязанию крючком двадцатью открытыми книгами в одной папке, а затем позволил агенту Hermes по умолчанию оркестрировать всё — для проекта выкройки сумки.
+> "Integrated the work of book-to-skill repo into our /learn command, and now Hermes Agent can ingest full books to create comprehensive detailed technical skills! Just /learn and point it to any pdf or book you have!"
 
-> Источники: [@Teknium, 7 августа 2026](https://x.com/Teknium/status/2085761587550519420) — [@b3pl33, 8 августа 2026](https://x.com/b3pl33/status/2086041266421424238)
+Использование фичи в терминале:
 
-## Встроенный браузер работает и с удалённым gateway
+```bash
+/learn ./path/to/handbook.pdf
+```
 
-Выпуск #11 сообщал, что встроенный браузер Hermes Desktop остаётся ограничен локальным приложением и не работает через удалённый gateway. Ограничение снято: Brooklyn! (@imbabybrooklyn) подтвердил 7 августа, что браузер теперь работает и с удалённым gateway.
+Сообщество уже тестирует механику на практике: пользователь @b3pl33 скормил специализированному агенту целую директорию из двадцати open-source книг по вязанию крючком. Затем базовый оркестратор Hermes Agent успешно скомпоновал накопленную базу знаний для проектирования сложной выкройки сумки.
 
-> «So if you were previously having issues with this when using remote gateway (it was only for local), @imbabybrooklyn confirmed it now works with remote gateway too!»
+> **Источники:**
+> - [@Teknium — Обновление команды /learn (7 августа 2026)](https://x.com/Teknium/status/2085761587550519420)
+> - [@b3pl33 — Практический кейс инжеста библиотек (8 августа 2026)](https://x.com/b3pl33/status/2086041266421424238)
 
-Tonbi перепостил подтверждение в своей демонстрации сценариев браузера, которую в свою очередь перепостил Teknium: пролистать ленту X и попросить сводку, посмотреть видео-туториал и извлечь транскрипт или реализовать концепции, или открыть ссылки из поиска и проанализировать их вместе.
+---
 
-> Источники: [@tonbistudio, перепост @Teknium, 7 августа 2026](https://x.com/tonbistudio/status/2085600678156882389) — [@imbabybrooklyn, 7 августа 2026](https://x.com/imbabybrooklyn/status/2085576851947221338)
+## Встроенный браузер теперь работает через remote gateway
 
-## Целая игра, спроектированная внутри Hermes Agent
+В выпуске #11 отмечалось, что встроенный браузер Hermes Desktop был привязан исключительно к локальной установке и не мог взаимодействовать с удаленным шлюзом. 
 
-@Da7_Tech показал 7 августа игру, чьи ассеты сгенерированы с MiniMax M3, а всё остальное — включая полный дизайн игры — создано с DeepSeek Flash, целиком внутри Hermes Agent. Nous Research перепостил пост, подчеркнув, что всё сделано в агенте.
+Ограничение снято: разработчик Brooklyn! (@imbabybrooklyn) подтвердил, что браузер Desktop получил полноценную поддержку **remote gateway**.
 
-> Источник: [@Da7_Tech, перепост @NousResearch, 7 августа 2026](https://x.com/Da7_Tech/status/2085763279696122149)
+> "So if you were previously having issues with this when using remote gateway (it was only for local), @imbabybrooklyn confirmed it now works with remote gateway too!"
 
-## Источники
+Креатор Tonbi продемонстрировал типовые сценарии работы встроенного браузера, поддержанные репостом от Teknium:
+- Скроллинг ленты в X (Twitter) с последующей суммаризацией тредов.
+- Просмотр обучающих видео с автоматическим извлечением транскриптов и кодогенерацией показанных концепций.
+- Параллельный анализ нескольких ссылок из поисковой выдачи внутри одного контекста.
 
-- [@Teknium — Стандартные переносимые плагины, 7 августа 2026](https://x.com/Teknium/status/2085780613005504687)
-- [@witcheer — Детали переносимых плагинов, 8 августа 2026](https://x.com/witcheer/status/2086108907685003306)
-- [Документация Hermes Agent — Переносимые плагины](https://hermes-agent.nousresearch.com/docs/developer-guide/plugins#portable-agent-plugins-v1-packages)
-- [@Teknium — /learn и книги, 7 августа 2026](https://x.com/Teknium/status/2085761587550519420)
-- [@b3pl33 — Отзыв об использовании /learn, 8 августа 2026](https://x.com/b3pl33/status/2086041266421424238)
-- [@tonbistudio, перепост @Teknium — Браузер и удалённый gateway, 7 августа 2026](https://x.com/tonbistudio/status/2085600678156882389)
-- [@imbabybrooklyn — Works remotely now, 7 августа 2026](https://x.com/imbabybrooklyn/status/2085576851947221338)
-- [@Da7_Tech, перепост @NousResearch — Игра, созданная в Hermes, 7 августа 2026](https://x.com/Da7_Tech/status/2085763279696122149)
+> **Источники:**
+> - [@imbabybrooklyn — Поддержка remote gateway (7 августа 2026)](https://x.com/imbabybrooklyn/status/2085576851947221338)
+> - [@tonbistudio / @Teknium — Демонстрация браузерных сценариев (7 августа 2026)](https://x.com/tonbistudio/status/2085600678156882389)
+
+---
+
+## Разработка полноценной игры целиком внутри Hermes Agent
+
+Разработчик @Da7_Tech представил готовую видеоигру, целиком спроектированную и собранную внутри окружения Hermes Agent без перехода во внешние IDE.
+
+**Стек и пайплайн проекта:**
+- **Ассеты окружения:** фоновые изображения сгенерированы моделью MiniMax M3.
+- **Геймдизайн и код:** весь код, игровая логика, физика и механики написаны при помощи DeepSeek Flash.
+- **Среда сборки:** весь процесс проектирования и сборки проекта курировался агентом. 
+
+Команда Nous Research отдельно отметила кейс, подчеркнув способность Hermes выступать самодостаточной средой разработки сквозных проектов.
+
+> **Источники:**
+> - [@Da7_Tech / @NousResearch — Кейс создания игры внутри агента (7 августа 2026)](https://x.com/Da7_Tech/status/2085763279696122149)
+
+---
 
 ## Лицензия
 
-CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr)
+CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr).

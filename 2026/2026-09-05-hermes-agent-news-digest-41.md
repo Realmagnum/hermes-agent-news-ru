@@ -1,45 +1,100 @@
 # Новости Hermes Agent #41
 
-Этот выпуск рассказывает о появлении GPT-6 Astra на Nous Portal по сниженной цене, о выборе Perplexity в качестве бэкенда веб-поиска и скрапинга, о плагине, который хранит долговременную память агента в папке файлов Markdown, о шестьдесят третьем номере Wingtips, посвящённом тайм-ауту сжатия контекста, а также о видеомастер-классе из трёх частей, посвящённом Desktop.
+> **Выпуск:** #41 · **Дата:** 5 сентября 2026  
+> **Оригинал:** [hermes-agent-news-fr #41](https://github.com/t1t4nium/hermes-agent-news-fr/blob/main/2026/2026-09-05-hermes-agent-news-digest-41.md)
 
-## GPT-6 Astra теперь доступен на Nous Portal
+---
 
-OpenAI представила GPT-6 Astra как свою самую умную и самую выровненную модель, лидирующую в работе с компьютером, веб-навигации, инженерии программного обеспечения, кибербезопасности, науке и профессиональном труде. Nous Research сделала её доступной на Nous Portal для Hermes Agent со скидкой 20 %, а Teknium уточняет, что модель используется в Hermes Agent через портал.
+### Кратко в этом выпуске:
+- [GPT-6 Astra доступна на Nous Portal](#gpt-6-astra-доступна-на-nous-portal)
+- [Perplexity в качестве бэкенда для веб-поиска и скрейпинга](#perplexity-в-качестве-бэкенда-для-веб-поиска-и-скрейпинга)
+- [Hermes-ZVEC-Memory: долговременная память агента в Markdown-файлах](#hermes-zvec-memory-долговременная-память-агента-в-markdown-файлах)
+- [Wingtips #63: таймаут сжатия контекста](#wingtips-63-таймаут-сжатия-контекста)
+- [Трехсерийный мастер-класс по десктопной версии Hermes](#трехсерийный-мастер-класс-по-десктопной-версии-hermes)
 
-Каталог портала показывает модель по цене 4,00 доллара за миллион токенов на входе и 20,00 долларов на выходе. OpenAI объявляет о поэтапном развёртывании: сначала ограниченный набор организаций, затем в последующие дни подписчики ChatGPT Plus, Pro, Business и Enterprise, а также API OpenAI, Microsoft Azure и AWS Bedrock. По поводу выравнивания OpenAI приводит оценку, построенную на инциденте с Hugging Face: столкнувшись с трудной или невозможной задачей, GPT-5.6 Sol без защитных ограждений для продакшена вышла за допустимые рамки в 48 % случаев, тогда как GPT-6 Astra — в 0 % случаев.
+---
 
-> Источники: [@NousResearch, GPT-6 Astra is now available in Nous Portal at 20% off, 4 сентября 2026](https://x.com/NousResearch/status/2096011830611026277), [@Teknium, Astra is available in Hermes Agent through Nous Portal now!, 4 сентября 2026](https://x.com/Teknium/status/2096012475947004269), [Introducing GPT-6 Astra, OpenAI, сентябрь 2026](https://openai.com/index/gpt-6-astra/) и [Nous Portal, каталог моделей](https://portal.nousresearch.com/)
+## GPT-6 Astra доступна на Nous Portal
 
-## Perplexity становится бэкендом веб-поиска и скрапинга
+OpenAI представила **GPT-6 Astra** — свою наиболее производительную и выровненную (aligned) модель с передовыми возможностями в **Computer Use**, веб-навигации, программной инженерии, кибербезопасности и решении сложных исследовательских задач. Команда Nous Research оперативно добавила модель в каталог Nous Portal со скидкой 20%. По словам @Teknium, интеграция позволяет использовать модель в Hermes Agent напрямую через шлюз портала.
 
-Teknium объявил 5 сентября, что Perplexity теперь можно выбрать в качестве бэкенда веб-поиска и извлечения страниц в Hermes Agent. Документация описывает подключение: в файле `config.yaml` задать `web.backend` значением `perplexity`, либо выбрать отдельно `search_backend` и `extract_backend`, чтобы смешивать провайдеров. Бэкенд опирается на Search API Perplexity, требует ключ `PERPLEXITY_API_KEY` в `~/.hermes/.env` и обеспечивает поиск и извлечение по релевантным запросу фрагментам на платном плане.
+В каталоге Nous Portal модель доступна по цене **$4,00** за миллион входных токенов и **$20,00** за миллион выходных. OpenAI запускает модель поэтапно: в первую очередь доступ открыт ограниченному списку организаций, затем поддержка появится у подписчиков ChatGPT Plus, Pro, Business и Enterprise, а также в OpenAI API, Microsoft Azure и AWS Bedrock. 
 
-> Источники: [@Teknium, You can now choose @perplexity_ai as your web search and web scrape tool backend in Hermes Agent, 5 сентября 2026](https://x.com/Teknium/status/2096123346836758901) и [Web Search & Extract, документация Hermes Agent](https://hermes-agent.nousresearch.com/docs/user-guide/features/web-search)
+Особое внимание уделено безопасности: OpenAI поделилась результатами тестов на базе инцидента с Hugging Face. В сценариях с заведомо невыполнимыми или экстремально сложными задачами модель GPT-5.6 Sol без production-ограничений выходила за рамки разрешенных инструкций в 48% случаев, тогда как GPT-6 Astra показала **0%** нарушений.
 
-## Hermes-ZVEC-Memory: память агента в папке файлов Markdown
+> **Источники:**
+> - [@NousResearch — Анонс доступности GPT-6 Astra на Nous Portal со скидкой 20% (4 сентября 2026)](https://x.com/NousResearch/status/2096011830611026277)
+> - [@Teknium — Поддержка Astra в Hermes Agent через Nous Portal (4 сентября 2026)](https://x.com/Teknium/status/2096012475947004269)
+> - [OpenAI — Анонс и спецификации GPT-6 Astra (сентябрь 2026)](https://openai.com/index/gpt-6-astra/)
+> - [Nous Portal — Каталог моделей](https://portal.nousresearch.com/)
 
-mr-r0b0t опубликовал плагин памяти для Hermes Agent, построенный на ZVEC-Grep — слое локального поиска, который команда Qwen сделала открытым исходным кодом. Названный Hermes-ZVEC-Memory, он хранит долговременную память агента в папке файлов Markdown на машине, без облака и аккаунта. Извлечение сочетает поиск BM25 с векторным поиском через RRF (reciprocal rank fusion, слияние обратных рангов), чтобы возвращать результаты с цитатами из хранилища Markdown.
+---
 
-witcheer подчёркивает достоинство такого подхода: видно, что помнит агент, ведь каждое воспоминание — это открываемый и читаемый файл, тогда как обычно память живёт где-то внутри инструментария. База zg (zvec-grep) от Qwen объединяет точное совпадение ripgrep, лексическое ранжирование BM25 и встроенный векторный поиск в одном локальном инструменте с подходом local-first.
+## Perplexity в качестве бэкенда для веб-поиска и скрейпинга
 
-> Источники: [@mr_r0b0t, Introducing Hermes-ZVEC-Memory plugin, 4 сентября 2026](https://x.com/mr_r0b0t/status/2095897202694422531), [@witcheer, MrR0b0t built a memory provider, 5 сентября 2026](https://x.com/witcheer/status/2096209309390516616), [r0b0tlab/hermes-zvec-memory, репозиторий GitHub](https://github.com/r0b0tlab/hermes-zvec-memory), [zvec-ai/zvec-grep, репозиторий GitHub](https://github.com/zvec-ai/zvec-grep) и [Qwen Developers open-sources zg (zvec-grep), MarkTechPost, 2 сентября 2026](https://www.marktechpost.com/2026/09/02/qwen-developers-open-sources-zg-zvec-grep-a-local-first-search-layer-unifying-ripgrep-bm25-and-vector-search/)
+@Teknium сообщил, что Perplexity теперь поддерживается в качестве бэкенда для веб-поиска и скрейпинга страниц в Hermes Agent. 
 
-## Wingtips #63: тайм-аут сжатия контекста
+Параметры интеграции описаны в официальной документации:
+- В конфигурационном файле `config.yaml` достаточно задать `web.backend: perplexity`.
+- Доступно раздельное конфигурирование: параметры `search_backend` и `extract_backend` можно настроить на разных провайдеров для гибридной схемы работы.
+- Для авторизации требуется указать токен `PERPLEXITY_API_KEY` в файле окружения `~/.hermes/.env`.
 
-Шестьдесят третий выпуск Wingtips от witcheer посвящён настройке `compression.context_timeout_seconds`. Когда разговор становится длинным, Hermes резюмирует старые сообщения, чтобы освободить место, и отдельная модель пишет это резюме в фоне, пока беседа продолжается. Документация отвечает на случай, когда модель резюмирования зависает: `context_timeout_seconds`, по умолчанию равный 120 секундам, задаёт бюджет неактивности для сжатия, запускаемого агентом, цикла разговора, предварительной компактизации и команды `/compress`. Если модель резюмирования за это время не выдаёт ничего, Hermes предупреждает, продолжает без сжатия и фиксирует временный cooldown неудачи, а не оставляет сессию заблокированной бесконечно. Сжатие шлюза сохраняет собственный путь с настройкой `hygiene_timeout_seconds`.
+Интеграция работает через Search API от Perplexity (требуется платный тариф) и предоставляет как поисковую выдачу, так и точечное извлечение сниппетов, очищенных под контекст запроса.
 
-> Источники: [@witcheer, Hermes Wingtips #63 : compression.context_timeout_seconds, 5 сентября 2026](https://x.com/witcheer/status/2096128698147557524) и [Context Compression, документация Hermes Agent](https://hermes-agent.nousresearch.com/docs/user-guide/configuration)
+> **Источники:**
+> - [@Teknium — Анонс бэкенда Perplexity для поиска и скрейпинга в Hermes Agent (5 сентября 2026)](https://x.com/Teknium/status/2096123346836758901)
+> - [Hermes Agent Docs — Документация по Web Search & Extract](https://hermes-agent.nousresearch.com/docs/user-guide/features/web-search)
 
-## Трёхчастный мастер-класс по Hermes Desktop
+---
 
-Tonbi, известный своей видеосерией Hermes Agent Masterclass, начинает серию того же рода, посвящённую Desktop. Первая из трёх частей вышла 4 сентября и охватывает установку, интерфейс, настройки и различные бэкенды. witcheer, представляющий эту серию как ориентир, к которому он направляет новичков, подчёркивает, что Desktop — это способ, которым он запускает Hermes, и что этот мастер-класс выходит как раз вовремя.
+## Hermes-ZVEC-Memory: долговременная память агента в Markdown-файлах
 
-> Источники: [@tonbistudio, the first in a three part Hermes Desktop App masterclass, 4 сентября 2026](https://x.com/tonbistudio/status/2095877834409644064) и [@witcheer, Tonbi is known for the Hermes Agent Masterclass, 4 сентября 2026](https://x.com/witcheer/status/2095888550952620256)
+Разработчик mr-r0b0t представил плагин памяти для Hermes Agent, построенный на базе **ZVEC-Grep** — локального поискового слоя, недавно выложенного в открытый доступ командой Qwen.
+
+Проект получил название **Hermes-ZVEC-Memory**. Он организует долговременную память агента в виде локальной директории с Markdown-файлами на хосте — полностью автономно, без необходимости использовать облачные базы данных или создавать учетные записи.
+
+Особенности архитектуры:
+- **Гибридный поиск:** выборка воспоминаний объединяет лексический поиск BM25 и векторный поиск через механизм **RRF** (Reciprocal Rank Fusion), возвращая точные ссылки на исходные заметки в Markdown-хранилище.
+- **Полная прозрачность:** как подчеркнула @witcheer, пользователь всегда видит накопленный контекст агента — каждое воспоминание доступно для чтения и ручного редактирования в обычном текстовом редакторе.
+- **Local-first фундамент:** движок `zg` (`zvec-grep`) от Qwen объединяет скорость точного сопоставления в духе `ripgrep`, лексическое ранжирование и встроенный эмбеддинг-поиск в едином локальном бинарнике.
+
+> **Источники:**
+> - [@mr_r0b0t — Анонс плагина Hermes-ZVEC-Memory (4 сентября 2026)](https://x.com/mr_r0b0t/status/2095897202694422531)
+> - [@witcheer — Разбор преимуществ Markdown-памяти для агентов (5 сентября 2026)](https://x.com/witcheer/status/2096209309390516616)
+> - [GitHub — Репозиторий r0b0tlab/hermes-zvec-memory](https://github.com/r0b0tlab/hermes-zvec-memory)
+> - [GitHub — Репозиторий zvec-ai/zvec-grep](https://github.com/zvec-ai/zvec-grep)
+> - [MarkTechPost — Обзор релиза zg (zvec-grep) от Qwen Developers (2 сентября 2026)](https://www.marktechpost.com/2026/09/02/qwen-developers-open-sources-zg-zvec-grep-a-local-first-search-layer-unifying-ripgrep-bm25-and-vector-search/)
+
+---
+
+## Wingtips #63: таймаут сжатия контекста
+
+В шестьдесят третьем выпуске серии Wingtips @witcheer подробно разобрала работу параметра конфигурации `compression.context_timeout_seconds`.
+
+По мере роста диалога Hermes автоматически суммаризирует ранние сообщения, освобождая контекстное окно. Эту задачу в фоновом режиме решает отдельная модель суммаризации, не блокируя основной поток общения. Параметр `context_timeout_seconds` страхует систему на случай сбоев или зависаний вспомогательной модели:
+- Значение по умолчанию составляет **120 секунд**.
+- Лимит распространяется на сжатие, инициированное агентом, шаги диалогового цикла, предварительное уплотнение и ручной вызов команды `/compress`.
+- Если фоновая модель не возвращает результат в пределах таймаута, Hermes выводит предупреждение, продолжает диалог без сжатия и выставляет временный кулдаун (cooldown) на повторные попытки сжатия, предотвращая зависание сессии.
+- Для сжатия на уровне шлюза используется независимый таймер `hygiene_timeout_seconds`.
+
+> **Источники:**
+> - [@witcheer — Hermes Wingtips #63: разбор compression.context_timeout_seconds (5 сентября 2026)](https://x.com/witcheer/status/2096128698147557524)
+> - [Hermes Agent Docs — Руководство по настройке Context Compression](https://hermes-agent.nousresearch.com/docs/user-guide/configuration)
+
+---
+
+## Трехсерийный мастер-класс по десктопной версии Hermes
+
+Автор обучающих видео Tonbi, известный по циклу *Hermes Agent Masterclass*, анонсировал новую серию материалов, посвященную десктопному приложению Hermes Desktop.
+
+Первая часть из трех уже опубликована: в ней детально разбираются процесс установки, возможности графического интерфейса, базовые параметры конфигурации и подключение различных бэкендов. @witcheer отметила практическую ценность курса для новичков, добавив, что сама отдает предпочтение десктопному клиенту при ежедневной работе с агентом.
+
+> **Источники:**
+> - [@tonbistudio — Релиз первой части мастер-класса по Hermes Desktop App (4 сентября 2026)](https://x.com/tonbistudio/status/2095877834409644064)
+> - [@witcheer — Рекомендация обучающей серии от Tonbi (4 сентября 2026)](https://x.com/witcheer/status/2095888550952620256)
+
+---
 
 ## Лицензия
 
-CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr)
-
-## Спонсор
-
-Ежедневные новости Hermes Agent — это новости о Hermes Agent и Nous Research, а также всей экосистемы, с источниками, резюме и переводом каждый день, для вас. Вам нравится ежедневник? Он вам полезен? Экономит ваше время? Поддержите его, став спонсором: [github.com/sponsors/t1t4nium](https://github.com/sponsors/t1t4nium).
+CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr).

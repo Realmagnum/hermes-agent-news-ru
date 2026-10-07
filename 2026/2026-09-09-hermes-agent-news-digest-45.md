@@ -1,51 +1,109 @@
 # Новости Hermes Agent #45
 
-В этом выпуске — о Perplexity Search API, теперь доступной в качестве движка веб-инструментов Hermes, о первоклассной интеграции агента в Omarchy — агентном дистрибутиве Linux от DHH, о появлении GPT-Image-2.5 в Hermes через подписки Codex и fal, о совете Wingtips, посвящённом команде общей диагностики, и об импорте диалогов Claude Code и Codex в десктоп Hermes.
+> **Выпуск:** #45 · **Дата:** 9 сентября 2026  
+> **Оригинал:** [hermes-agent-news-fr #45](https://github.com/t1t4nium/hermes-agent-news-fr/blob/main/2026/2026-09-09-hermes-agent-news-digest-45.md)
+
+---
+
+### Кратко в этом выпуске:
+- [Perplexity Search API как поисковый движок Hermes](#perplexity-search-api-kak-poiskovyy-dvizhok-hermes)
+- [Нативная поддержка Hermes в агентном дистрибутиве Omarchy](#nativnaya-podderzhka-hermes-v-agentnom-distributive-omarchy)
+- [GPT-Image-2.5 в Hermes Agent через подписки Codex и fal](#gpt-image-25-v-hermes-agent-cherez-podpiski-codex-i-fal)
+- [Wingtips #67: команда hermes debug share](#wingtips-67-komanda-hermes-debug-share)
+- [Импорт сессий Claude Code и Codex в десктопный клиент Hermes](#import-sessiy-claude-code-i-codex-v-desktopnyy-klient-hermes)
+
+---
 
 ## Perplexity Search API как поисковый движок Hermes
 
-NousResearch объявил 9 сентября, что в Hermes Agent теперь можно использовать API Perplexity Search, — объявление сопровождается анонсом Perplexity и сообщением поддержки от сооснователя Perplexity. Серия ночных статусов освещает тот же запуск веб-инструмента для агента.
+Команда NousResearch объявила об интеграции Perplexity Search API в Hermes Agent. Релиз синхронно поддержали разработчики Perplexity и сооснователь компании, представив новый веб-инструментарий для агента.
 
-Документация по интеграции Perplexity уточняет механизм. Hermes может использовать Perplexity как бэкенд своих инструментов `web_search` и `web_extract`: `web_search` возвращает ранжированные результаты Search API, а `web_extract` — релевантные фрагменты каждого URL. Интеграция меняет веб-инструменты, а не модель, управляющую агентом, и настраивается установкой ключа `PERPLEXITY_API_KEY` в `.env` и последующей установкой значений `web.backend`, `web.search_backend` и `web.extract_backend` на `perplexity`. Провайдер включён в Hermes v0.21.1 (тег v2026.9.7) и новее, через запрос на слияние 102055. Статус команды Perplexity указывает, что Search API даёт доступ к индексу из более чем 400 миллиардов URL с результатами в реальном времени и фрагментами, ранжированными по релевантности. Тема продолжает обзор возможных движков для веб-инструментов, где бесключевая карусель уже занимает место, документированное этим ежедневником.
+Согласно официальной документации интеграции, Hermes теперь может использовать Perplexity в качестве бэкенда для инструментов веб-доступа `web_search` и `web_extract`:
+- `web_search` возвращает ранжированные поисковые результаты через Search API;
+- `web_extract` извлекает наиболее релевантные фрагменты контента по целевым URL.
 
-> Источники: [@NousResearch, You can now use the Perplexity Search API in Hermes Agent, 9 сентября 2026](https://x.com/NousResearch/status/2097485341250752979), [@perplexitydevs, Perplexity Search API is now available in Hermes Agent, 9 сентября 2026](https://x.com/perplexitydevs/status/2097483428895801607) и [Perplexity web search in Hermes, документация Perplexity](https://docs.perplexity.ai/docs/getting-started/integrations/hermes)
+Интеграция расширяет возможности веб-тулов агента, не затрагивая при этом модель, которая им управляет. Для переключения поискового провайдера достаточно настроить переменные окружения:
 
-## Hermes первоклассно интегрирован в Omarchy
+- Задать ключ `PERPLEXITY_API_KEY` в файле `.env`.
+- Установить параметры `web.backend`, `web.search_backend` и `web.extract_backend` со значением `perplexity`.
 
-NousResearch объявил 8 сентября о первоклассной поддержке Hermes в Omarchy — агентном дистрибутиве Linux на базе Arch, созданном Дэвидом Хайнемайером Ханссоном, автором Ruby on Rails. Десктоп-приложение устанавливается из меню AI, или Hermes настраивается как терминальный агент по умолчанию, и тогда тема Omarchy задаёт цвета десктоп-приложения, TUI и CLI.
+Поддержка провайдера включена в Hermes v0.21.1 (тег `v2026.9.7`) в рамках пулл-реквеста #102055. По данным команды Perplexity, Search API открывает агенту доступ к индексу из более чем 400 миллиардов URL в реальном времени, возвращая очищенные и отранжированные по релевантности выжимки.
 
-witcheer описывает практическую пользу: десктоп-приложение устанавливается из меню AI, как любое приложение Omarchy, а назначение Hermes терминальным агентом по умолчанию заставляет его перенять тему Omarchy в приложении, TUI и CLI — единый набор цветов. Официальный сайт Omarchy описывает дистрибутив как податливую ОС для эпохи агентов, с быстрой установкой, агентами, которые отлаживают проблемы, и тысячами плагинов сообщества. Teknium и witcheer каждый перепечатывают анонс в одном временном окне.
+> **Источники:**
+> - [@NousResearch — You can now use the Perplexity Search API in Hermes Agent (9 сентября 2026)](https://x.com/NousResearch/status/2097485341250752979)
+> - [@perplexitydevs — Perplexity Search API is now available in Hermes Agent (9 сентября 2026)](https://x.com/perplexitydevs/status/2097483428895801607)
+> - [Perplexity Documentation — Perplexity web search in Hermes](https://docs.perplexity.ai/docs/getting-started/integrations/hermes)
 
-> Источники: [@NousResearch, Hermes now has first-class support in Omarchy, 8 сентября 2026](https://x.com/NousResearch/status/2097403926072987986), [@witcheer, Hermes Agent is now built into Omarchy, 8 сентября 2026](https://x.com/witcheer/status/2097405028076343661) и [Omarchy, официальный сайт](https://omarchy.org/)
+---
 
-## GPT-Image-2.5 появляется в Hermes через Codex и fal
+## Нативная поддержка Hermes в агентном дистрибутиве Omarchy
 
-Teknium объявил 8 сентября, что GPT-Image-2.5 теперь доступен в Hermes Agent через подписки Codex и инференс fal, а доступ вскоре появится на Nous Portal. Объявление сопровождает выход ChatGPT Images 2.5 в OpenAI, представленный как более быстрый, более чёткий и более точный.
+NousResearch объявила о first-class интеграции Hermes в **Omarchy** — специализированном агентном дистрибутиве на базе Arch Linux, разрабатываемом Дэвидом Хейнемейером Ханссоном (DHH, создатель Ruby on Rails).
 
-Коммюнике OpenAI от 8 сентября подтверждает две модели изображений GPT-Image-2.5 Sunburst и GPT-Image-2.5 Flare, доступные в API, с более быстрой генерацией изображений, лучшей точностью для более естественных и узнаваемых изображений и согласованными деталями при множественных правках. Тема продолжает недавние анонсы моделей, уже освещавшиеся этим ежедневником, — интерес здесь в добавлении генерации изображений как возможности, используемой из Hermes.
+Разработчик @witcheer уточнил технические детали интеграции:
+- Десктопное приложение Hermes можно установить в один клик напрямую из системного меню **AI**, как любую штатную программу Omarchy.
+- При назначении Hermes терминальным агентом по умолчанию оформление системы автоматически адаптирует цветовую палитру Omarchy для десктопного клиента, TUI и CLI.
 
-> Источники: [@Teknium, GPT-Image-2.5 now available in Hermes Agent through Codex subscriptions and @fal, 8 сентября 2026](https://x.com/Teknium/status/2097465800231883091) и [Introducing ChatGPT Images 2.5, OpenAI, 8 сентября 2026](https://openai.com/index/introducing-chatgpt-images-2-5/)
+Официальный сайт Omarchy позиционирует дистрибутив как «гибкую ОС для эпохи агентов» с быстрой установкой, агентами для отладки системных неполадок и обширным каталогом плагинов от сообщества. Анонс также подтвердили @Teknium и @witcheer.
 
-## Wingtips #67: hermes debug share
+> **Источники:**
+> - [@NousResearch — Hermes now has first-class support in Omarchy (8 сентября 2026)](https://x.com/NousResearch/status/2097403926072987986)
+> - [@witcheer — Hermes Agent is now built into Omarchy (8 сентября 2026)](https://x.com/witcheer/status/2097405028076343661)
+> - [Omarchy — Официальный сайт проекта](https://omarchy.org/)
 
-В шестьдесят седьмом номере Wingtips witcheer представляет `hermes debug share` — команду, которую стоит запускать, когда хочешь задать вопрос о том, что сделал Hermes Agent, в Discord или в issue. Первые вопросы всегда одни и те же: какая версия, какая модель, какой провайдер, что говорят журналы. У Hermes есть единственная команда, которая собирает весь пакет.
+---
 
-Совет повторяет форму серии: показать команду, что она собирает и когда её применять. Она избавляет от переспрашивания одних и тех же базовых вопросов о версии, модели и провайдере перед любой просьбой о помощи и присоединяется к коллекции Wingtips, уже представленной этим ежедневником.
+## GPT-Image-2.5 в Hermes Agent через подписки Codex и fal
 
-> Источники: [@witcheer, Hermes Wingtips #67: hermes debug share, 9 сентября 2026](https://x.com/witcheer/status/2097565476435992883)
+@Teknium сообщил, что модель генерации изображений **GPT-Image-2.5** стала доступна в Hermes Agent через подписки Codex и инференс-провайдера fal. В ближайшее время доступ также появится на Nous Portal.
 
-## Импорт диалогов Claude Code и Codex в десктоп
+Релиз приурочен к выходу обновления ChatGPT Images 2.5 от OpenAI:
+- В API добавлены две вариации модели: **GPT-Image-2.5 Sunburst** и **GPT-Image-2.5 Flare**.
+- Новое поколение отличается ускоренной генерацией, повышенной детализацией и точным следованием промптам.
+- Обеспечивается высокая консистентность деталей и персонажей при итеративном редактировании.
 
-witcheer перечислил 9 сентября пять изменений релиза v0.21.1, собранного в понедельник и доступного уже сегодня. Первое — запрос на слияние 104229 — позволяет переносить свои диалоги Claude Code и Codex в Hermes Desktop: открыть палитру команд, выбрать Import session, просмотреть диалог и продолжить его в десктоп-приложении.
+Интеграция расширяет мультимодальные сценарии Hermes, позволяя агенту автономно создавать и редактировать графический контент в рамках рабочих задач.
 
-Запрос на слияние, подготовленный teknium1 и озаглавленный «import foreign coding-agent sessions from the sidebar», добавляет запись Import session в боковую панель десктопа. Она перечисляет транскрипты сторонних агентов кодирования, присутствующие на хост-машине, предпросматривает их в режиме только для чтения и продолжает копию под выбранным профилем. Это десктоп-эквивалент `hermes sessions import` и `hermes --resume @claude|@codex`, построенный на том же анализаторе и том же хранении в базе. Тема дополняет освещение релиза v0.21.1, уже сделанное этим ежедневником, указывая на одну из его конкретных возможностей.
+> **Источники:**
+> - [@Teknium — GPT-Image-2.5 now available in Hermes Agent through Codex subscriptions and @fal (8 сентября 2026)](https://x.com/Teknium/status/2097465800231883091)
+> - [OpenAI — Introducing ChatGPT Images 2.5 (8 сентября 2026)](https://openai.com/index/introducing-chatgpt-images-2-5/)
 
-> Источники: [@witcheer, Hermes Agent v0.21.1 shipped on Monday as a rollup, 9 сентября 2026](https://x.com/witcheer/status/2097593332515938514) и [feat(desktop): import foreign coding-agent sessions from the sidebar, PR 104229, репозиторий hermes-agent](https://github.com/NousResearch/hermes-agent/pull/104229)
+---
+
+## Wingtips #67: команда hermes debug share
+
+В 67-м выпуске серии советов Wingtips @witcheer обратил внимание на утилиту `hermes debug share` — стандартный инструмент первичного сбора контекста при возникновении неполадок.
+
+При оформлении issue или обращении за помощью в Discord разработчикам всегда требуются базовые вводные: версия Hermes, используемая модель, провайдер и логи выполнения. Чтобы не собирать эти параметры вручную, достаточно выполнить команду:
+
+```bash
+hermes debug share
+```
+
+Команда автоматически формирует диагностический пакет со всеми метаданными среды, исключая лишние уточняющие вопросы и ускоряя процесс траблшутинга.
+
+> **Источники:**
+> - [@witcheer — Hermes Wingtips #67 : hermes debug share (9 сентября 2026)](https://x.com/witcheer/status/2097565476435992883)
+
+---
+
+## Импорт сессий Claude Code и Codex в десктопный клиент Hermes
+
+В накопительном релизе Hermes v0.21.1 появился инструмент миграции сессий: пулл-реквест #104229 от @teknium1 добавляет возможность импорта диалогов из Claude Code и Codex прямо в Hermes Desktop.
+
+**Особенности работы с сессиями:**
+- В командную палитру и сайдбар десктопного приложения добавлен пункт **Import session**.
+- Hermes находит сохраненные транскрипты сторонних код-агентов на хосте и открывает их список.
+- Выбранную сессию можно предварительно просмотреть в режиме «только чтение», а затем продолжить диалог, создав копию под выбранным профилем Hermes.
+
+Нововведение стало графическим аналогом CLI-команд `hermes sessions import` и `hermes --resume @claude|@codex` — обе реализации используют один и тот же парсер и базу данных на уровне хоста.
+
+> **Источники:**
+> - [@witcheer — Hermes Agent v0.21.1 shipped on Monday as a rollup (9 сентября 2026)](https://x.com/witcheer/status/2097593332515938514)
+> - [GitHub PR 104229 — feat(desktop): import foreign coding-agent sessions from the sidebar](https://github.com/NousResearch/hermes-agent/pull/104229)
+
+---
 
 ## Лицензия
 
-CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr)
-
-## Спонсор
-
-Ежедневник Hermes Agent — это новости о Hermes Agent и Nous Research, а также всей экосистеме, с источниками, резюме и переводом каждый день, для вас. Вам нравится ежедневник? Он вам полезен? Экономит ваше время? Поддержите его, став спонсором: [github.com/sponsors/t1t4nium](https://github.com/sponsors/t1t4nium).
+CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr).

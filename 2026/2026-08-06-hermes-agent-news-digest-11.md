@@ -1,69 +1,90 @@
 # Новости Hermes Agent #11
 
-Встроенный браузер позволяет Hermes Desktop видеть и контролировать веб вместе с пользователем, AnyDoc конвертирует все форматы документов в Markdown локально, Actual Inc. интегрирует Hermes нативно, а официальная документация получает структурное обновление.
+> **Выпуск:** #11 · **Дата:** 6 августа 2026  
+> **Оригинал:** [hermes-agent-news-fr #11](https://github.com/t1t4nium/hermes-agent-news-fr/blob/main/2026/2026-08-06-hermes-agent-news-digest-11.md)
 
-## Встроенный браузер в Hermes Desktop, управляемый агентом
+---
 
-5 августа Brooklyn! (@imbabybrooklyn) анонсировал, что Hermes Desktop теперь оснащён встроенным браузером, которым агент может управлять и в котором может видеть содержимое:
+### Кратко в этом выпуске:
+- [Встроенный браузер в Hermes Desktop под управлением агента](#встроенный-браузер-в-hermes-desktop-под-управлением-агента)
+- [AnyDoc: Hermes Agent читает любые форматы документов](#anydoc-hermes-agent-читает-любые-форматы-документов)
+- [Нативная интеграция Actual Inc. с Hermes Agent](#нативная-интеграция-actual-inc-с-hermes-agent)
+- [Масштабное обновление документации Hermes Agent](#масштабное-обновление-документации-hermes-agent)
 
-> «Hermes Desktop now has an in-app browser that hermes can control and is aware of.»
+---
 
-Tonbi (@tonbistudio) опубликовал 6 августа демонстрационное видео и подробно описал возможности:
+## Встроенный браузер в Hermes Desktop под управлением агента
 
-> «This new Hermes Desktop browser isn't just an extra window with a browser bolted on, the agent can operate, see, and analyze what it sees along with you.»
+5 августа Brooklyn! (@imbabybrooklyn) сообщил, что в Hermes Desktop появился полноценный встроенный браузер. Агент может не просто считывать открытый контент, но и напрямую управлять сессией:
 
-Среди названных сценариев: пролистать ленту X и попросить сводку горячих тем, посмотреть YouTube-туториал и попросить агента извлечь транскрипт или реализовать концепции, или открывать ссылки из поиска в браузере и анализировать их вместе.
+> "Hermes Desktop now has an in-app browser that hermes can control and is aware of."
 
-Teknium перепостил оба анонса. Brooklyn! подтвердил, что браузер сохраняет состояние входа (persistent login state). Несколько пользователей отметили, что функция пока ограничена локальным desktop-приложением и не работает через удалённый gateway.
+6 августа Tonbi (@tonbistudio) опубликовал видеодемонстрацию функционала и описал новые возможности:
 
-> Источники: [@imbabybrooklyn, 5 августа 2026](https://x.com/imbabybrooklyn/status/2085019745221554678) — [@tonbistudio, 6 августа 2026](https://x.com/tonbistudio/status/2085153882708078596)
+> "This new Hermes Desktop browser isn't just an extra window with a browser bolted on, the agent can operate, see, and analyze what it sees along with you."
 
-## AnyDoc: Hermes Agent читает все форматы документов
+Среди ключевых сценариев использования:
+- Скроллинг ленты в X с возможностью попросить агента подготовить выжимку горячих тем;
+- Просмотр туториалов на YouTube, где агент может на лету вытащить транскрипт или написать код по озвученной концепции;
+- Совместный серфинг и анализ поисковой выдачи прямо в одном окне.
 
-6 августа Teknium анонсировал, что Hermes Agent теперь может читать любой формат файлов: PDF, Word, PowerPoint, Excel, OpenDocument, RTF, EPUB — все автоматически конвертируются в чистый Markdown в момент чтения, полностью локально. Ноль конфигурации, установка автоматическая.
+Анонсы репостнул Teknium. Разработчик подтвердил, что браузер сохраняет сессии авторизации (**persistent login state**). Пользователи отмечают, что пока функционал доступен только локально в десктопном приложении и не поддерживается при работе через удалённый шлюз.
 
-Функция основана на AnyDoc — открытой библиотеке на Rust, опубликованной Firecrawl (@firecrawl). Nicolas Camara (@nickscamara_) рассказал о производительности 4 августа: конвертация менее чем за 5 мс, 500 файлов DOCX обработаны за 1,7 секунды, покрытие 13 форматов.
+> **Источники:**
+> - [@imbabybrooklyn — Встроенный браузер в Hermes Desktop (5 августа 2026)](https://x.com/imbabybrooklyn/status/2085019745221554678)
+> - [@tonbistudio — Демонстрация работы браузера (6 августа 2026)](https://x.com/tonbistudio/status/2085153882708078596)
 
-Один пользователь уже опубликовал дополнительный плагин, hermes-docs (@dyiapanis), добавляющий OCR-слой, которого в AnyDoc нет нативно.
+---
 
-> Источник: [@Teknium, 6 августа 2026](https://x.com/Teknium/status/2085156837561893117) — [@nickscamara_, 4 августа 2026](https://x.com/nickscamara_/status/2084669934194266370)
+## AnyDoc: Hermes Agent читает любые форматы документов
 
-## Actual Inc. нативно интегрируется с Hermes Agent
+6 августа Teknium сообщил, что Hermes Agent получил поддержку чтения произвольных форматов файлов: **PDF, Word, PowerPoint, Excel, OpenDocument, RTF и EPUB**. Конвертация в чистый Markdown происходит полностью локально прямо в момент обращения агента к файлу. Процесс не требует настройки и работает автоматически из коробки.
 
-6 августа Actual Inc. (@actualinc) объявил, что его платформа персонального инференса теперь работает с Hermes Agent из коробки:
+Под капотом используется **AnyDoc** — открытая библиотека на Rust, разработанная командой Firecrawl (@firecrawl). Nicolas Camara (@nickscamara_) поделился бенчмарками:
+- парсинг одного документа занимает менее **5 мс**;
+- пакетная обработка **500 файлов DOCX** укладывается в **1,7 секунды**;
+- нативная поддержка **13 форматов**.
 
-> «The world's best harness, Hermes Agent by @NousResearch now works with Actual out of the box. Hermes is the most effective harness for every model and thats why we're thrilled to use it natively. Hermes agent users can now use their personal inference capacity from anywhere.»
+Сообщество уже выпустило дополнение `hermes-docs` от разработчика @dyiapanis, добавляющее OCR-слой для распознавания отсканированных страниц, которого в базовом AnyDoc пока нет.
 
-Teknium перепостил анонс. Actual Inc. предлагает инференс с любого устройства, и эта интеграция позволяет пользователям Hermes подключать собственную персональную вычислительную мощность без дополнительной настройки.
+> **Источники:**
+> - [@Teknium — Поддержка всех форматов документов через AnyDoc (6 августа 2026)](https://x.com/Teknium/status/2085156837561893117)
+> - [@nickscamara_ — Презентация AnyDoc и бенчмарки (4 августа 2026)](https://x.com/nickscamara_/status/2084669934194266370)
 
-> Источник: [@actualinc, перепост @Teknium, 6 августа 2026](https://x.com/actualinc/status/2085172429895172136)
+---
 
-## Документация Hermes Agent переработана
+## Нативная интеграция Actual Inc. с Hermes Agent
 
-5 августа Witcheer (@witcheer) анонсировал важное обновление официальной документации Hermes Agent, основанное на отзывах пользователей из X, Reddit, GitHub и Discord за последние месяцы.
+6 августа платформа персонального инференса Actual Inc. (@actualinc) объявила об официальной поддержке Hermes Agent:
 
-Новинки в документации:
+> "The world's best harness, Hermes Agent by @NousResearch now works with Actual out of the box. Hermes is the most effective harness for every model and thats why we're thrilled to use it natively. Hermes agent users can now use their personal inference capacity from anywhere."
 
-- Гайд по безопасному запуску Hermes на личной или рабочей машине.
-- Чеклист по устранению неполадок, когда агент работает хуже обычного.
-- Объяснение времени первого ответа на локальных моделях (и что его улучшит).
-- Страница соответствия файлов: какой файл что делает (SOUL.md, USER.md, MEMORY.md, AGENTS.md).
-- Таблица тарификации по планам для провайдеров с подпиской.
-- Предупреждение о направлении двух агентов на одну и ту же папку Hermes home.
+Новость репостнул Teknium. Actual Inc. предоставляет возможность запускать инференс с любых пользовательских устройств. Благодаря нативной интеграции владельцы Hermes Agent могут подключать свои персональные вычислительные мощности без необходимости ручной правки конфигов.
 
-Witcheer напоминает, что Hermes Agent содержит скилл чтения собственной документации, позволяющий агенту искать ответ и объяснять исправление при проблеме.
+> **Источники:**
+> - [@actualinc / @Teknium — Анонс нативной интеграции Actual Inc. (6 августа 2026)](https://x.com/actualinc/status/2085172429895172136)
 
-> Источник: [@witcheer, перепост @Teknium, 5 августа 2026](https://x.com/witcheer/status/2085040329816731713)
+---
 
-## Источники
+## Масштабное обновление документации Hermes Agent
 
-- [@imbabybrooklyn — Встроенный браузер в Hermes Desktop, 5 августа 2026](https://x.com/imbabybrooklyn/status/2085019745221554678)
-- [@tonbistudio — Демонстрация браузера, 6 августа 2026](https://x.com/tonbistudio/status/2085153882708078596)
-- [@Teknium — AnyDoc: все форматы документов, 6 августа 2026](https://x.com/Teknium/status/2085156837561893117)
-- [@nickscamara_ — Презентация AnyDoc, 4 августа 2026](https://x.com/nickscamara_/status/2084669934194266370)
-- [@actualinc, перепост @Teknium — Интеграция Actual Inc., 6 августа 2026](https://x.com/actualinc/status/2085172429895172136)
-- [@witcheer, перепост @Teknium — Обновление документации, 5 августа 2026](https://x.com/witcheer/status/2085040329816731713)
+5 августа Witcheer (@witcheer) представил масштабный апдейт официальной документации Hermes Agent, собранный по итогам анализа проблем и вопросов пользователей в X, Reddit, GitHub и Discord за последние месяцы.
+
+В обновленную документацию вошли:
+- Руководство по безопасному развертыванию Hermes на личных и корпоративных рабочих станциях;
+- Чеклист траблшутинга на случай просадки качества ответов агента;
+- Разбор задержек первого ответа (Time to First Token) на локальных моделях и способы их снижения;
+- Структура контекстных файлов: подробное описание назначения `SOUL.md`, `USER.md`, `MEMORY.md` и `AGENTS.md`;
+- Сводная таблица тарифных планов провайдеров инференса;
+- Предупреждение о рисках и конфликтах при подключении двух агентов к одной домашней директории Hermes.
+
+Witcheer также напомнил, что у Hermes Agent есть встроенный скилл чтения собственной документации: агент может самостоятельно найти нужный раздел и подсказать решение проблемы при возникновении ошибок.
+
+> **Источники:**
+> - [@witcheer / @Teknium — Обновление официальной документации (5 августа 2026)](https://x.com/witcheer/status/2085040329816731713)
+
+---
 
 ## Лицензия
 
-CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr)
+CC BY 4.0. Оригинал: [hermes-agent-news-fr](https://github.com/t1t4nium/hermes-agent-news-fr).
