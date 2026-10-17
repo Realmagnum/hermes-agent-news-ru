@@ -12,6 +12,7 @@
 ---
 
 ## Выпуски
+- [#83 — 17 октября 2026](2026/2026-10-17-hermes-agent-news-digest-83.md)
 - [#82 — 16 октября 2026](2026/2026-10-16-hermes-agent-news-digest-82.md)
 - [#81 — 15 октября 2026](2026/2026-10-15-hermes-agent-news-digest-81.md) · релиз v0.22.2
 - [#80 — 14 октября 2026](2026/2026-10-14-hermes-agent-news-digest-80.md) · релиз v0.22.0 «The Threshold Release»
