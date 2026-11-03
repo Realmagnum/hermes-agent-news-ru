@@ -12,6 +12,7 @@
 ---
 
 ## Выпуски
+- [#100 — 3 ноября 2026](2026/2026-11-03-hermes-agent-news-digest-100.md) · релиз v0.22.6
 - [#99 — 2 ноября 2026](2026/2026-11-02-hermes-agent-news-digest-99.md)
 - [#98 — 1 ноября 2026](2026/2026-11-01-hermes-agent-news-digest-98.md)
 - [#97 — 31 октября 2026](2026/2026-10-31-hermes-agent-news-digest-97.md)
